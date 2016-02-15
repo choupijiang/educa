@@ -48,6 +48,7 @@
       <exported-key name="#FAKE_auth_user_groups_2" table="auth_user_groups" schema="" catalog="" columns="user_id"/>
       <exported-key name="#FAKE_auth_user_user_permissions_2" table="auth_user_user_permissions" schema="" catalog="" columns="user_id"/>
       <exported-key name="#FAKE_courses_course_2" table="courses_course" schema="" catalog="" columns="owner_id"/>
+      <exported-key name="#FAKE_courses_course_students_1" table="courses_course_students" schema="" catalog="" columns="user_id"/>
       <exported-key name="#FAKE_courses_file_1" table="courses_file" schema="" catalog="" columns="owner_id"/>
       <exported-key name="#FAKE_courses_image_1" table="courses_image" schema="" catalog="" columns="owner_id"/>
       <exported-key name="#FAKE_courses_text_1" table="courses_text" schema="" catalog="" columns="owner_id"/>
@@ -79,8 +80,11 @@
       <column name="object_id" sqlType="INTEGER UNSIGNED" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
       <column name="content_type_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
       <column name="order" sqlType="INTEGER UNSIGNED" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="module_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
-      <foreign-key name="#FAKE_courses_content_1" columns="content_type_id" ref-table="django_content_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_courses_content_1" columns="module_id" ref-table="courses_module" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_courses_content_2" columns="content_type_id" ref-table="django_content_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="courses_content_c9799665" unique="true" columns="module_id"/>
       <index name="courses_content_417f1b1c" unique="true" columns="content_type_id"/>
     </table>
     <table name="courses_course" schema="" catalog="" type="TABLE">
@@ -94,9 +98,20 @@
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_courses_course_1" columns="subject_id" ref-table="courses_subject" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_courses_course_2" columns="owner_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_courses_course_students_2" table="courses_course_students" schema="" catalog="" columns="course_id"/>
       <exported-key name="#FAKE_courses_module_1" table="courses_module" schema="" catalog="" columns="course_id"/>
       <index name="courses_course_ffaba1d1" unique="true" columns="subject_id"/>
       <index name="courses_course_5e7b1936" unique="true" columns="owner_id"/>
+    </table>
+    <table name="courses_course_students" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="course_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_courses_course_students_1" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_courses_course_students_2" columns="course_id" ref-table="courses_course" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="courses_course_students_e8701ad4" unique="true" columns="user_id"/>
+      <index name="courses_course_students_ea134da7" unique="true" columns="course_id"/>
     </table>
     <table name="courses_file" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
@@ -128,6 +143,7 @@
       <column name="order" sqlType="INTEGER UNSIGNED" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_courses_module_1" columns="course_id" ref-table="courses_course" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_courses_content_1" table="courses_content" schema="" catalog="" columns="module_id"/>
       <index name="courses_module_ea134da7" unique="true" columns="course_id"/>
     </table>
     <table name="courses_subject" schema="" catalog="" type="TABLE">
@@ -180,7 +196,7 @@
       <column name="model" sqlType="VARCHAR(100)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
       <exported-key name="#FAKE_auth_permission_1" table="auth_permission" schema="" catalog="" columns="content_type_id"/>
-      <exported-key name="#FAKE_courses_content_1" table="courses_content" schema="" catalog="" columns="content_type_id"/>
+      <exported-key name="#FAKE_courses_content_2" table="courses_content" schema="" catalog="" columns="content_type_id"/>
       <exported-key name="#FAKE_django_admin_log_2" table="django_admin_log" schema="" catalog="" columns="content_type_id"/>
     </table>
     <table name="django_migrations" schema="" catalog="" type="TABLE">
