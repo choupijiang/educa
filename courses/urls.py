@@ -5,7 +5,7 @@ urlpatterns = [
     url(r'^mine/$', views.ManageCourseListView.as_view(), name='manage_course_list'),
     url(r'^create/$', views.CourseCreateView.as_view(), name='course_create'),
     url(r'^(?P<pk>\d+)/edit/$', views.CourseUpdateView.as_view(), name='course_edit'),
-    url(r'^(?P<pk>\d+)/delete/$', views.CourseDeleteView.as_view(), name='course_delete'),
+    url(r'^delete/(?P<slug>[\w-]+)/$', views.CourseDeleteView.as_view(), name='course_delete'),
     url(r'^(?P<pk>\d+)/module/$', views.CourseModuleUpdateView.as_view(), name='course_module_update'),
 
     url(r'^module/(?P<module_id>\d+)/$', views.ModuleContentListView.as_view(), name='module_content_list'),
@@ -15,6 +15,8 @@ urlpatterns = [
 
     url(r'^module/order/$', views.ModuleOrderView.as_view(), name='module_order'),
     url(r'^content/order/$', views.ContentOrderView.as_view(), name='content_order'),
+
+
     url(r'^$', views.CourseListView.as_view(), name='course_list'),
     url(r'^subject/(?P<subject>[\w-]+)/$', views.CourseListView.as_view(), name='course_list_subject'),
     url(r'^(?P<slug>[\w-]+)/$', views.CourseDetailView.as_view(), name='course_detail'),

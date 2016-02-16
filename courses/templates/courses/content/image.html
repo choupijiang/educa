@@ -1,3 +1,7 @@
+{% load thumbnail %}
 <p>
-    <img src="{{ item.file.url }}">
+
+    {% thumbnail item.file  "400" crop="center" as im %}
+        <img src="{{ im.url }}">
+    {% endthumbnail %}
 </p>

@@ -1,15 +1,15 @@
 from .models import Course, Module, Content
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-from braces.views import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateResponseMixin, View
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin, CsrfExemptMixin, JSONRequestResponseMixin
+
 from .forms import ModuleFormSet
 from django.apps import apps
 from django.forms.models import modelform_factory
-from braces.views import CsrfExemptMixin, JSONRequestResponseMixin
 from django.db.models import Count
 from .models import Subject
 from students.forms import CourseEnrollForm

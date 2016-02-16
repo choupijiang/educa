@@ -6,6 +6,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from .fields import OrderField
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
+
 # Create your models here.
 import sys
 reload(sys)
@@ -90,7 +91,7 @@ class File(ItemBase):
 
 
 class Image(ItemBase):
-    file = models.FileField(upload_to='images')
+    file = models.ImageField(upload_to='images')
 
 class Vedio(ItemBase):
     url = models.URLField()
